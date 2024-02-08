@@ -1,7 +1,7 @@
 name: "PR Title Checker"
 on:
   pull_request:
-    types: [opened, reopened,edited]
+    types: [opened, reopened, edited]
     branches:
       - 'main'
 

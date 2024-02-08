@@ -1,7 +1,7 @@
 name: "PR Title Checker"
 on:
   pull_request:
-    types: [opened, reopened, edited]
+    types: [opened, reopened, edited, assigned, unassigned, labeled, unlabeled, closed, synchronize, converted_to_draft, locked, unlocked, unlocked, dequeued, milestoned, demilestoned, ready_for_review, review_requested, review_request_removed, auto_merge_enabled, auto_merge_disabled]
     branches:
       - 'main'
 

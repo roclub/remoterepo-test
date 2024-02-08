@@ -1,9 +1,13 @@
-  name: "PR Title Checker"
+name: "PR Title Checker"
 on:
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - edited
+      - synchronize
+      - reopened
+    branches:
+      - 'main'
 
 permissions:
   pull-requests: write
@@ -18,12 +22,19 @@ jobs:
 
       - name: Pull File
         run: |
-          # locally clones remote repo to runner
+          set -e
+          echo "Starting the script..."
           git clone https://${{ secrets.PULL_FROM_OTHER_REPOSITORIES }}@github.com/roclub/workflow-templates.git source-repo
           cd source-repo
-          # Specify the files you want to pull and copy them to a file folder to maintain the original structure
-          # cp -u .github/configs/pr-title-checker-config.json ../.github/configs/
-    
+          echo "Printing the working directory..."
+          pwd
+          echo "Creating the destination directory (if it doesn't exist) and copying the config file..."
+          mkdir -p ../.github/configs/
+          cp -u .github/configs/pr-title-checker-config.json ../.github/configs/
+          echo "The full file path of the copied pr-title-checker-config.json file is:"
+          realpath ../.github/configs/pr-title-checker-config.json
+          echo "Script ended."
+
       - name: Check PR title
         uses: thehanimo/pr-title-checker@v1.4.1
         with:
